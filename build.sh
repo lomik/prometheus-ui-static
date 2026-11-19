@@ -4,8 +4,14 @@ set -e
 
 cd "$(dirname "$0")"
 
+# Prometheus builds its web UI with pnpm (see web/ui/.nvmrc for the Node.js version).
+if ! command -v pnpm >/dev/null 2>&1; then
+	echo "pnpm is required (e.g. npm install -g 'pnpm@<13')" >&2
+	exit 1
+fi
+
 # BRANCH=$(grep 'github.com/prometheus/prometheus' go.mod | awk '{print $2}')
-BRANCH=v0.305.0
+BRANCH=v0.316.0
 
 rm -rf tmp
 mkdir tmp
